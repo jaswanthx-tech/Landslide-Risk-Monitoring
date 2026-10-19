@@ -1,12 +1,12 @@
 # NER Landslide Sentinel
 
-> **AI-Powered Dynamic Landslide Early Warning and Risk Monitoring System for North-East India**  
+> **Landslide Risk Monitoring Prototype for North-East India**  
 > *Developed for Smart India Hackathon — Problem Statement SIH26001*
 
 ---
 
 ## 📌 Project Overview
-North-East India faces high susceptibility to precipitation-induced landslides across major connectivity lifelines (e.g. NH-29 Kohima-Dimapur, NH-06 Meghalaya-Barak corridor, Chungthang Sikkim highway, and Dima Hasao railway tracks). **NER Landslide Sentinel** monitors geological and meteorological parameters, processes antecedent rainfall triggers, visualizes spatial vulnerabilities on interactive GIS maps, crowdsources field reports, and calculates operational response priorities for disaster response authorities (NDRF/SDRF).
+**NER Landslide Sentinel** is an SIH26001 prototype demonstrating a GIS dashboard, illustrative landslide-risk scores, sample reports, and a separate Open-Meteo weather-context feed for selected North-East India coordinates. It is not an operational early-warning service: seeded rainfall/risk values, alerts, reports, and historical records are demo data unless explicitly identified otherwise. Weather-context values are model-based and do not automatically update risk scores. Do not use this prototype for real-world safety decisions; follow official local disaster-management and weather advisories.
 
 ---
 
@@ -16,10 +16,10 @@ North-East India faces high susceptibility to precipitation-induced landslides a
 DATA SOURCES (Historical + Terrain + Rainfall + Field Reports)
    │
    ▼
-FEATURE EXTRACTION & HEURISTIC ENGINE (Awaiting trained model.joblib)
+DEMO HEURISTIC ENGINE (No validated trained model)
    │
    ▼
-DYNAMIC RISK STRATIFICATION (LOW / MODERATE / HIGH / CRITICAL)
+ILLUSTRATIVE RISK CATEGORIES (LOW / MODERATE / HIGH / CRITICAL)
    │
    ▼
 GIS MAPPING & OPERATIONAL DASHBOARDS
@@ -28,7 +28,7 @@ GIS MAPPING & OPERATIONAL DASHBOARDS
 CITIZEN INCIDENT REPORTING & ROAD BLOCKAGE SENSING
    │
    ▼
-TRANSPARENT RESPONSE PRIORITY SCORING (SDRF / District Authorities)
+EXPLAINABLE PROTOTYPE GUIDANCE (Not an official warning)
 ```
 
 ---
@@ -82,7 +82,7 @@ python -m uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload
 ### 3. Verify Endpoints
 - Interactive Swagger Documentation: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
 - Health Check: [http://127.0.0.1:8000/health](http://127.0.0.1:8000/health)
-- Regional Dashboard Summary: [http://127.0.0.1:8000/api/dashboard/summary](http://127.0.0.1:8000/api/dashboard/summary)
+- Regional Dashboard Summary: [http://127.0.0.1:8000/api/dashboard/summary](http://127.0.0.1:8000/api/dashboard/summary)\n- Separate model-based weather context: [http://127.0.0.1:8000/api/weather/live](http://127.0.0.1:8000/api/weather/live) (requires internet access; does not alter demo scores)
 
 ---
 
@@ -95,6 +95,6 @@ python tests/test_phase2.py
 ---
 
 ## 🛡️ Hackathon Transparency & Model Status
-- **Current Model Status**: `DEMO_RISK_ENGINE` (calibrated multi-factor heuristic prototype).
-- **Data Status**: Seeded with representative North-East India geological and rainfall coordinates, all explicitly labeled with `is_demo_data=True`.
-- **Integrity Guarantee**: No unsupported or fabricated ML accuracy claims (e.g. "99% accuracy") are made. The backend interface is architected for seamless drop-in integration of trained `model.joblib` (Random Forest, XGBoost, or LightGBM) in subsequent phases.
+- **Current Model Status**: `DEMO_RISK_ENGINE` (heuristic prototype; no validated trained model is loaded).
+- **Data Status**: Seeded risk scores, rainfall values, alerts, reports, and historical records are illustrative and flagged with `is_demo_data=True`. Coordinates are demo monitoring points, not proof of active sensor coverage.
+- **Weather Context**: `/api/weather/live` retrieves Open-Meteo model-based weather context for the configured coordinates. It is intentionally separate from the heuristic risk score until inputs, calibration, and validation can be established.\n- **Integrity**: No ML accuracy claims are made. A trained model, validated datasets, operational sensors, and independent evaluation remain future work.
