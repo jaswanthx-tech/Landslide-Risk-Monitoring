@@ -114,7 +114,7 @@ export default function MapContainer({
           </LayersControl.BaseLayer>
 
           {/* Overlay Layer Groups */}
-          <LayersControl.Overlay checked name="Monitored Risk Locations (/api/risk/locations)">
+          <LayersControl.Overlay checked name="Demo Risk Scores (/api/risk/locations)">
             <LayerGroup>
               {filteredLocations.map((loc) => (
                 <Marker
@@ -162,7 +162,7 @@ export default function MapContainer({
                       {/* Risk Score Bar */}
                       <div>
                         <div className="flex justify-between text-[10px] text-slate-400 mb-1">
-                          <span>Calculated Risk Index</span>
+                          <span>Demo Risk Index (heuristic)</span>
                           <span className="font-bold text-slate-200">{Math.round(loc.risk_score * 100)} / 100</span>
                         </div>
                         <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
