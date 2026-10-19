@@ -140,7 +140,7 @@ export default function App() {
               <Activity className="w-5 h-5" />
             </div>
             <div>
-              <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Active Warnings</span>
+              <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Demo Alerts</span>
               <div className="text-lg font-black text-cyan-400">{summary?.active_alerts?.length || 0} Alerts</div>
             </div>
           </div>
@@ -150,7 +150,7 @@ export default function App() {
               <TrendingUp className="w-5 h-5" />
             </div>
             <div>
-              <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Highest Threat Zone</span>
+              <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Highest Demo Score</span>
               <div className="text-xs font-bold text-purple-300 truncate max-w-[140px]">
                 {highestRiskLoc ? highestRiskLoc.name : 'N/A'}
               </div>
