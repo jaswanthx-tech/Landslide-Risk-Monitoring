@@ -34,7 +34,7 @@ export default function Navbar({ summary, onRefresh, onOpenReportModal, loading 
                 </span>
               </div>
               <p className="text-xs text-slate-400">
-                AI Early Warning & GIS Monitoring — North-East India
+                Landslide Risk Prototype & GIS Monitoring — North-East India
               </p>
             </div>
           </div>
@@ -53,16 +53,16 @@ export default function Navbar({ summary, onRefresh, onOpenReportModal, loading 
         <div className="flex items-center gap-2">
           <div className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-semibold ${getStatusBadge(overallStatus)}`}>
             <Radio className="w-4 h-4 animate-ping text-current" />
-            <span>STATUS: {overallStatus}</span>
+            <span>DEMO STATUS: {overallStatus}</span>
           </div>
           {summary?.regional_summary && (
             <div className="hidden lg:flex items-center gap-3 text-xs text-slate-400 bg-slate-950/60 border border-slate-800/80 px-3 py-1.5 rounded-lg">
               <span className="text-slate-300">
-                <strong className="text-red-400">{summary.regional_summary.critical_risk_count}</strong> Critical
+                <strong className="text-red-400">{summary.regional_summary.critical_risk_count}</strong> Demo Critical
               </span>
               <span className="text-slate-600">•</span>
               <span className="text-slate-300">
-                <strong className="text-amber-400">{summary.regional_summary.high_risk_count}</strong> High Risk
+                <strong className="text-amber-400">{summary.regional_summary.high_risk_count}</strong> Demo High
               </span>
               <span className="text-slate-600">•</span>
               <span className="text-slate-300">
