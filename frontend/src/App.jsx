@@ -133,7 +133,7 @@ export default function App() {
               <ShieldAlert className="w-5 h-5" />
             </div>
             <div>
-              <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Critical Sectors</span>
+              <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Demo Critical Scores</span>
               <div className="text-lg font-black text-red-400">{criticalCount} Zones</div>
             </div>
           </div>
@@ -143,7 +143,7 @@ export default function App() {
               <AlertTriangle className="w-5 h-5" />
             </div>
             <div>
-              <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">High Risk Zones</span>
+              <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Demo High Scores</span>
               <div className="text-lg font-black text-amber-400">{highCount} Zones</div>
             </div>
           </div>
@@ -312,7 +312,7 @@ export default function App() {
                   }`}
                 >
                   <ShieldAlert className="w-3.5 h-3.5" />
-                  <span>Active Warnings ({summary?.active_alerts?.length || 0})</span>
+                  <span>Demo Alerts ({summary?.active_alerts?.length || 0})</span>
                 </button>
 
                 <button
@@ -336,7 +336,7 @@ export default function App() {
                   }`}
                 >
                   <History className="w-3.5 h-3.5" />
-                  <span>Historical Events ({historical.length})</span>
+                  <span>Demo Historical Records ({historical.length})</span>
                 </button>
               </div>
 
@@ -354,10 +354,10 @@ export default function App() {
                             <div className="flex items-center gap-2">
                               <span className="font-bold text-slate-200">{alert.location_name}</span>
                               <span className="text-[10px] bg-red-500/20 text-red-400 border border-red-500/30 px-1.5 py-0.2 rounded">
-                                {alert.risk_level}
+                                {alert.is_demo_data ? `DEMO ${alert.risk_level}` : alert.risk_level}
                               </span>
                             </div>
-                            <p className="text-slate-400 text-[11px] mt-0.5">{alert.message}</p>
+                            <p className="text-slate-400 text-[11px] mt-0.5">{alert.is_demo_data ? "SIMULATED: " : ""}{alert.message}</p>
                           </div>
                         </div>
                       ))
@@ -377,7 +377,7 @@ export default function App() {
                         >
                           <div>
                             <div className="flex items-center gap-2">
-                              <span className="font-bold text-slate-200">{rep.location_name}</span>
+                              <span className="font-bold text-slate-200">{rep.is_demo_data ? "[DEMO] " : ""}{rep.location_name}</span>
                               <span className="text-[10px] text-cyan-400 bg-cyan-500/10 border border-cyan-500/30 px-1.5 py-0.2 rounded">
                                 Severity: {rep.severity}
                               </span>
@@ -390,7 +390,7 @@ export default function App() {
                         </div>
                       ))
                     ) : (
-                      <div className="text-slate-500 py-4 text-center">No citizen field reports yet.</div>
+                      <div className="text-slate-500 py-4 text-center">No field reports available.</div>
                     )}
                   </div>
                 )}
@@ -405,14 +405,14 @@ export default function App() {
                         >
                           <div>
                             <div className="flex items-center gap-2">
-                              <span className="font-bold text-purple-300">{ev.location_name}</span>
+                              <span className="font-bold text-purple-300">{ev.is_demo_data ? "[DEMO] " : ""}{ev.location_name}</span>
                               <span className="text-[10px] text-slate-400 bg-purple-500/10 border border-purple-500/30 px-1.5 py-0.2 rounded">
                                 {ev.event_date}
                               </span>
                             </div>
                             <p className="text-slate-300 text-[11px] mt-0.5">{ev.damage_summary}</p>
                           </div>
-                          <span className="text-[10px] text-slate-400">{ev.data_source}</span>
+                          <span className="text-[10px] text-slate-400">{ev.is_demo_data ? "Illustrative sample — source not verified" : ev.data_source}</span>
                         </div>
                       ))
                     ) : (
