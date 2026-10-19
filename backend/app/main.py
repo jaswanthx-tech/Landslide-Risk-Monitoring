@@ -15,6 +15,7 @@ from app.database.database import Base, engine, get_db
 from app.data.seed_demo_data import seed_database
 from app.api.dashboard import router as dashboard_router
 from app.api.endpoints import router as endpoints_router
+from app.api.weather import router as weather_router
 
 
 @asynccontextmanager
@@ -72,6 +73,7 @@ app.add_middleware(
 # Register API Routers
 app.include_router(dashboard_router)
 app.include_router(endpoints_router)
+app.include_router(weather_router)
 
 
 @app.get("/", tags=["General"])
