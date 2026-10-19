@@ -54,8 +54,9 @@ app = FastAPI(
     title=APP_NAME,
     version=APP_VERSION,
     description=(
-        "AI-Powered Dynamic Landslide Early Warning and Risk Monitoring System "
-        "for North-East India (SIH26001 Prototype)."
+        "SIH26001 landslide-risk monitoring prototype for North-East India. "
+        "Uses illustrative heuristic risk scores and a separate model-based weather-context feed; "
+        "not an operational early-warning service."
     ),
     lifespan=lifespan,
     debug=DEBUG,
