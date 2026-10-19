@@ -37,14 +37,14 @@ def get_risk_locations(db: Session = Depends(get_db)):
 
 @router.get("/historical-landslides", response_model=List[HistoricalLandslideSchema])
 def get_historical_landslides(db: Session = Depends(get_db)):
-    """Returns ground-truth historical landslide records across North-East India."""
+    """Returns historical-record samples; callers must check is_demo_data before treating them as verified."""
     events = db.query(HistoricalLandslide).order_by(HistoricalLandslide.id.desc()).all()
     return events
 
 
 @router.get("/reports", response_model=List[IncidentReportSchema])
 def get_incident_reports(db: Session = Depends(get_db)):
-    """Returns citizen and field hazard verification reports."""
+    """Returns submitted reports and samples; callers must check is_demo_data before treating them as verified."""
     reports = db.query(IncidentReport).order_by(IncidentReport.submitted_at.desc()).all()
     return reports
 
