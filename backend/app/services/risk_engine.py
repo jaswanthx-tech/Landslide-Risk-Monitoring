@@ -30,29 +30,32 @@ def calculate_haversine_distance(lat1: float, lon1: float, lat2: float, lon2: fl
 
 
 def get_recommended_action(risk_level: str) -> str:
-    """Generates prototype safety advisory based on risk level."""
+    """Returns non-operational prototype guidance; never issues an official warning."""
+    disclaimer = (
+        "PROTOTYPE GUIDANCE ONLY — based on illustrative model inputs, not a verified forecast "
+        "or official warning. Check current advisories from authorised disaster-management agencies. "
+    )
     if risk_level == "CRITICAL":
-        return (
-            "CRITICAL EMERGENCY WARNING: High probability of active slope displacement. "
-            "Suspend transit on cut-slope corridors. Station SDRF/BRO heavy machinery on standby. "
-            "Local authorities should issue immediate civil defense advisories for foothill settlements."
+        advice = (
+            "This demo score is in the highest category. Verify local conditions and official alerts; "
+            "trained authorities must assess any road closures or protective action."
         )
     elif risk_level == "HIGH":
-        return (
-            "HIGH RISK ADVISORY: Soil saturation high. Increase slope monitoring and station traffic police "
-            "at checkposts. Prepare response teams for rapid road clearance in case of debris flow."
+        advice = (
+            "This demo score is in a high category. Review verified rainfall, terrain observations, "
+            "and official advisories before taking any action."
         )
     elif risk_level == "MODERATE":
-        return (
-            "MODERATE WATCH: Monitor weather forecasts and official advisories. "
-            "Avoid unnecessary heavy transport through vulnerable hill sectors during intense rainfall."
+        advice = (
+            "This demo score is in a moderate category. Continue checking reliable weather information "
+            "and official local advisories."
         )
     else:
-        return (
-            "LOW RISK / ROUTINE MONITORING: Weather parameters within normal thresholds. "
-            "Maintain standard automated sensor & telemetry surveillance."
+        advice = (
+            "This demo score is in a lower category; it does not establish that an area is safe. "
+            "Continue to follow official weather and disaster-management guidance."
         )
-
+    return disclaimer + advice
 
 def calculate_risk_assessment(location: Any, historical_records: Optional[List[Any]] = None) -> Dict[str, Any]:
     """
