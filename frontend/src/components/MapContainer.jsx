@@ -193,7 +193,7 @@ export default function MapContainer({
             </LayerGroup>
           </LayersControl.Overlay>
 
-          <LayersControl.Overlay name="Historical Landslides (/api/historical-landslides)">
+          <LayersControl.Overlay name="Demo Historical Records (/api/historical-landslides)">
             <LayerGroup>
               {historical.map((ev) => (
                 <Marker
@@ -205,7 +205,7 @@ export default function MapContainer({
                     <div className="p-1 space-y-1.5 text-xs">
                       <div className="font-bold text-purple-300 border-b border-purple-900/50 pb-1 flex items-center gap-1">
                         <History className="w-3.5 h-3.5" />
-                        <span>Historical Ground-Truth Event</span>
+                        <span>{ev.is_demo_data ? "Demo Historical Record — Unverified" : "Historical Record — Verify Source"}</span>
                       </div>
                       <div className="font-semibold text-slate-100">{ev.location_name}</div>
                       <div className="text-slate-400 text-[11px]">
@@ -223,7 +223,7 @@ export default function MapContainer({
             </LayerGroup>
           </LayersControl.Overlay>
 
-          <LayersControl.Overlay name="Field Incident Reports (/api/reports)">
+          <LayersControl.Overlay name="Field Incident Reports (demo records marked)">
             <LayerGroup>
               {reports.map((rep) => (
                 <Marker
@@ -235,7 +235,7 @@ export default function MapContainer({
                     <div className="p-1 space-y-1.5 text-xs">
                       <div className="font-bold text-rose-400 border-b border-rose-900/50 pb-1 flex items-center gap-1">
                         <AlertCircle className="w-3.5 h-3.5" />
-                        <span>Citizen Field Report ({rep.severity})</span>
+                        <span>{rep.is_demo_data ? "Demo Field Report — Unverified" : `Field Report (${rep.severity})`}</span>
                       </div>
                       <div className="font-semibold text-slate-100">{rep.location_name}</div>
                       <div className="text-slate-300 text-[11px]">{rep.description}</div>
@@ -255,7 +255,7 @@ export default function MapContainer({
       <div className="absolute top-3 left-3 z-[400] bg-slate-900/90 backdrop-blur-md border border-slate-800 px-3 py-2 rounded-xl shadow-lg flex items-center gap-3">
         <MapPin className="w-4 h-4 text-cyan-400" />
         <div className="text-xs">
-          <span className="font-semibold text-slate-200">North-East India GIS Sector</span>
+          <span className="font-semibold text-slate-200">North-East India GIS Prototype</span>
           <span className="text-slate-400 ml-2">({filteredLocations.length} locations visible)</span>
         </div>
       </div>
