@@ -26,6 +26,8 @@ export default function App() {
   const [locations, setLocations] = useState([]);
   const [historical, setHistorical] = useState([]);
   const [reports, setReports] = useState([]);
+  const [weatherData, setWeatherData] = useState(null);
+  const [weatherError, setWeatherError] = useState(null);
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -51,6 +53,17 @@ export default function App() {
       setLocations(resLocations.data);
       setHistorical(resHistorical.data);
       setReports(resReports.data);
+
+      // Weather is a separate context feed. Its failure must not block the core demo dashboard.
+      axios.get('/api/weather/live')
+        .then((resWeather) => {
+          setWeatherData(resWeather.data);
+          setWeatherError(null);
+        })
+        .catch(() => {
+          setWeatherData(null);
+          setWeatherError('Weather provider unavailable. Demo scores remain unchanged.');
+        });
     } catch (err) {
       console.error('Error fetching dashboard data:', err);
       setError('Unable to connect to FastAPI backend service. Ensure server is running on http://127.0.0.1:8000.');
@@ -156,6 +169,42 @@ export default function App() {
               </div>
             </div>
           </div>
+        </section>
+
+        {/* Live weather context is displayed separately from illustrative risk scores */}
+        <section className="rounded-xl border border-sky-500/20 bg-slate-900/60 p-3.5">
+          <div className="flex flex-wrap items-start justify-between gap-2 mb-2">
+            <div>
+              <h2 className="text-sm font-bold text-sky-200">Weather Context — Open-Meteo</h2>
+              <p className="text-[11px] text-slate-400 mt-1">
+                Model-based weather data only. This feed does not update demo risk scores or issue official warnings.
+              </p>
+            </div>
+            <span className="rounded-full border border-sky-500/30 bg-sky-500/10 px-2 py-1 text-[10px] font-bold text-sky-200">
+              {weatherData?.status === 'ok' ? 'FEED CONNECTED' : 'FEED STATUS UNKNOWN'}
+            </span>
+          </div>
+          {weatherError && <p className="text-xs text-amber-300">{weatherError}</p>}
+          {!weatherData && !weatherError && <p className="text-xs text-slate-400">Loading separate weather feed…</p>}
+          {weatherData?.locations?.length > 0 && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2">
+              {weatherData.locations.map((weather) => (
+                <div key={weather.location_id} className="rounded-lg border border-slate-800 bg-slate-950/60 p-2.5">
+                  <p className="text-xs font-semibold text-slate-200 truncate" title={weather.location_name}>{weather.location_name}</p>
+                  {weather.status === 'available' ? (
+                    <div className="mt-1.5 space-y-1 text-[11px] text-slate-300">
+                      <div>Temperature: <strong className="text-sky-200">{weather.temperature_2m_c ?? '—'}°C</strong></div>
+                      <div>Current precipitation: <strong className="text-sky-200">{weather.current_precipitation_mm ?? '—'} mm</strong></div>
+                      <div>Daily forecast: <strong className="text-sky-200">{weather.daily_precipitation_forecast_mm ?? '—'} mm</strong></div>
+                    </div>
+                  ) : <p className="mt-1 text-[11px] text-amber-300">Weather unavailable</p>}
+                </div>
+              ))}
+            </div>
+          )}
+          {weatherData?.retrieved_at_utc && (
+            <p className="mt-2 text-[10px] text-slate-500">Retrieved: {weatherData.retrieved_at_utc} · Source: {weatherData.source}</p>
+          )}
         </section>
 
         {/* Core Layout: Sidebar + GIS Map + Bottom Tabs */}
